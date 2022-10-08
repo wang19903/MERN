@@ -4,6 +4,9 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
 const authRoute = require("./routes").auth;
+const courseRoute = require("./routes").course;
+const passport = require("passport");
+require("./config/passport")(passport);
 
 mongoose
   .connect(process.env.DB_CONNECT, {
@@ -20,6 +23,12 @@ mongoose
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/api/user", authRoute); //加 /api 與react區別
+app.use(
+  "/api/courses",
+  //取得TOKEN後，JWT後面要空格，才讀的到JWT這個字串
+  passport.authenticate("jwt", { session: false }),
+  courseRoute
+);
 
 app.listen(8080, () => {
   console.log("Server running on port 8080");

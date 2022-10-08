@@ -1,5 +1,5 @@
+//驗證要寫進資料庫的資料
 const Joi = require("joi");
-//describe your data using a simple, intuitive, and readable language.
 
 //register vaildation
 const registerValidation = (data) => {
@@ -22,5 +22,16 @@ const loginVaildation = (data) => {
   return schema.validate(data);
 };
 
+const courseValidation = (data) => {
+  const schema = Joi.object({
+    title: Joi.string().min(6).max(50).required(),
+    description: Joi.string().min(6).max(50).required(),
+    price: Joi.number().min(10).max(9999).required()
+  });
+
+  return schema.validate(data);
+};
+
 module.exports.registerValidation = registerValidation;
 module.exports.loginVaildation = loginVaildation;
+module.exports.courseValidation = courseValidation;
