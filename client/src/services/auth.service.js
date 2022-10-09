@@ -5,8 +5,15 @@ const port = 8081;
 const API_URL = "http://localhost:" + port + "/api/user";
 
 class AuthService {
-  login() {}
-  logout() {}
+  login(email, password) {
+    return axios.post(API_URL + "/login", {
+      email,
+      password
+    });
+  }
+  logout() {
+    localStorage.removeItem("user");
+  }
   register(username, email, password, role) {
     return axios.post(API_URL + "/register", {
       username,
@@ -15,7 +22,9 @@ class AuthService {
       role
     });
   }
-  getCurrentUser() {}
+  getCurrentUser() {
+    return JSON.parse(localStorage.getItem("user"));
+  }
 }
 
 //直接new成物件Promise

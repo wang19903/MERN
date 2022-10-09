@@ -26,6 +26,7 @@ const RegisterComponet = () => {
     console.log("register !");
     AuthService.register(username, email, password, role)
       .then(() => {
+        setMessage("");
         window.alert(
           "Registration succeeds. You are now redirected to the login page."
         );
