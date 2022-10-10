@@ -1,13 +1,11 @@
 import React from "react";
-//import { useState } from "react";
-//import AuthService from "../services/auth.service";
 
 const ProfileComponet = (props) => {
   console.log(props);
   let { currentUser, setCurrentUser } = props;
   //讓JWT+空格，貼在POSTMAN TOKEN才正確
   let txt = JSON.stringify(currentUser.token);
-
+  txt = txt.slice(1, 4) + " " + txt.slice(5, -1);
   return (
     <div style={{ padding: "3rem" }}>
       {!currentUser && (
@@ -16,13 +14,13 @@ const ProfileComponet = (props) => {
       {currentUser && (
         <div>
           <h1>In profile page.</h1>
-          <header className="jumpotron">
+          <header>
             <h3>
               <strong>{currentUser.user.username}</strong>
             </h3>
           </header>
           <p>
-            <strong>Token: {txt.slice(1, 4) + " " + txt.slice(5, -1)}</strong>
+            <strong style={{ wordBreak: "break-all" }}>Token: {txt}</strong>
           </p>
           <p>
             <strong>ID: {currentUser.user._id}</strong>
