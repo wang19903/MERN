@@ -49,7 +49,9 @@ const HomeComponet = () => {
           </div>
         </div>
 
-        <footer className="pt-3 mt-4 text-muted border-top">&copy; 2022</footer>
+        <footer className="pt-3 mt-4 text-muted border-top">
+          &copy; 2022 demo
+        </footer>
       </div>
     </main>
   );

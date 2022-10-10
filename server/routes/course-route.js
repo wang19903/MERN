@@ -22,6 +22,19 @@ router.get("/", (req, res) => {
     });
 });
 
+router.get("/instructor/:_instructor_id", (req, res) => {
+  let { _instructor_id } = req.params;
+  Course.find({ _instructor_id })
+    .populate("instructor", ["username", "email"])
+    .then((course) => {
+      res.send(course);
+    })
+    .catch((err) => {
+      console.log("get courses: " + err);
+      res.status(500).send("cant get courses");
+    });
+});
+
 router.get("/:_id", (req, res) => {
   let { _id } = req.params;
   Course.findOne({ _id })

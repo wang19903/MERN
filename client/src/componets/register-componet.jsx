@@ -47,6 +47,7 @@ const RegisterComponet = () => {
       <div>
         <div>
           {message && <div className="alert alert-danger">{message}</div>}
+          {/*for在react是保留字，改成htmlFor*/}
           <label htmlFor="username">Username</label>
           <input
             onChange={handleChangeUsername}

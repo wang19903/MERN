@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import AuthService from "../services/auth.service";
+import React from "react";
+//import { useState } from "react";
+//import AuthService from "../services/auth.service";
 
 const ProfileComponet = (props) => {
   console.log(props);
