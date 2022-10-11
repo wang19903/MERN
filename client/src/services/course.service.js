@@ -28,6 +28,29 @@ class CourseService {
     );
   }
 
+  update(title, description, price, editId) {
+    if (localStorage.getItem("user")) {
+      this.token_buf = JSON.parse(localStorage.getItem("user")).token;
+      this.token = this.token_buf.slice(0, 3) + " " + this.token_buf.slice(3);
+    } else {
+      this.token = "";
+    }
+    console.log("course update: " + this.token);
+    return axios.patch(
+      API_URL + "/" + editId,
+      {
+        title,
+        description,
+        price
+      },
+      {
+        headers: {
+          Authorization: this.token
+        }
+      }
+    );
+  }
+
   getEnrolledCourses(_student_id) {
     if (localStorage.getItem("user")) {
       this.token_buf = JSON.parse(localStorage.getItem("user")).token;
@@ -63,8 +86,23 @@ class CourseService {
     } else {
       this.token = "";
     }
-    console.log("API=> " + API_URL + "/instructor/" + _instructor_id);
+    // console.log("API=> " + API_URL + "/instructor/" + _instructor_id);
     return axios.get(API_URL + "/instructor/" + _instructor_id, {
+      headers: {
+        Authorization: this.token
+      }
+    });
+  }
+
+  getOneCourse(_id) {
+    if (localStorage.getItem("user")) {
+      this.token_buf = JSON.parse(localStorage.getItem("user")).token;
+      this.token = this.token_buf.slice(0, 3) + " " + this.token_buf.slice(3);
+    } else {
+      this.token = "";
+    }
+    console.log("API=> " + API_URL + "/" + _id);
+    return axios.get(API_URL + "/" + _id, {
       headers: {
         Authorization: this.token
       }
