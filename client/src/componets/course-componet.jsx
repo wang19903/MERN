@@ -14,8 +14,8 @@ const CourseComponet = (props) => {
   let [price, setPrice] = useState(0);
   let [d, sd] = useState("");
   const ref = useRef();
-  const handleChangeTitle = (data) => {
-    setTitle(data);
+  const handleChangeTitle = (e) => {
+    setTitle(e.target.value);
   };
   const handleChangeDesciption = (e) => {
     setDescription(e.target.value);
@@ -24,7 +24,7 @@ const CourseComponet = (props) => {
     setPrice(e.target.value);
   };
 
-  const handleEditMode = (e) => {
+  const handleEditMode = async (e) => {
     // setTitle(data.data.title);
     // setDescription(e.target.value);
     // setPrice(e.target.value);
@@ -36,9 +36,10 @@ const CourseComponet = (props) => {
     console.log(a);
     console.log("after", editMode, editId);
 
-    courseService
+    await courseService
       .getOneCourse(a)
       .then((data) => {
+        console.log(data.data.title);
         setTitle(data.data.title);
         setDescription(data.data.description);
         setPrice(data.data.price);
@@ -49,12 +50,14 @@ const CourseComponet = (props) => {
   };
 
   const updateCourse = () => {
+    let buf = !editMode;
     courseService
       .update(title, description, price, editId)
       .then(() => {
         window.alert("New course has been updated.");
         setMessage("");
-        navigate("/course");
+        setEditMode(buf);
+        setEditId("");
       })
       .catch((error) => {
         console.log(error.response);
