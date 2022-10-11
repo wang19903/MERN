@@ -29,6 +29,7 @@ class CourseService {
   }
 
   update(title, description, price, editId) {
+    console.log("update: " + title, description, price, editId);
     if (localStorage.getItem("user")) {
       this.token_buf = JSON.parse(localStorage.getItem("user")).token;
       this.token = this.token_buf.slice(0, 3) + " " + this.token_buf.slice(3);

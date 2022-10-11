@@ -7,16 +7,15 @@ const CourseComponet = (props) => {
   let { currentUser, setCurrentUser } = props;
   let [courseData, setCourseData] = useState(null);
   let [editMode, setEditMode] = useState(false);
-  let [editId, setEditId] = useState(1);
+  let [editId, setEditId] = useState("1");
   let [message, setMessage] = useState("");
   let [title, setTitle] = useState("3");
   let [description, setDescription] = useState("4");
   let [price, setPrice] = useState(0);
-  const ref = useRef(null);
-
-  const handleChangeTitle = (e) => {
-    console.log(ref.current.value);
-    setTitle(e.target.value);
+  let [d, sd] = useState("");
+  const ref = useRef();
+  const handleChangeTitle = (data) => {
+    setTitle(data);
   };
   const handleChangeDesciption = (e) => {
     setDescription(e.target.value);
@@ -32,37 +31,43 @@ const CourseComponet = (props) => {
     let buf = !editMode;
     let a = e.currentTarget.id;
 
-    console.log(a);
     setEditMode(buf);
     setEditId(a); ///??
-    console.log(editId);
+    console.log(a);
     console.log("after", editMode, editId);
-    let Data = {};
+
     courseService
       .getOneCourse(a)
       .then((data) => {
-        Data = data.data;
-        //console.log(Data);
+        setTitle(data.data.title);
+        setDescription(data.data.description);
+        setPrice(data.data.price);
       })
       .catch((err) => {
         console.log("setCourseData err: " + err);
       });
-
-    console.log("123 " + title);
   };
 
   const updateCourse = () => {
-    // courseService
-    //   .update(title, description, price, editId)
-    //   .then(() => {
-    //     window.alert("New course has been created.");
-    //     setMessage("");
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.response);
-    //     setMessage(error.response.data);
-    //   });
+    courseService
+      .update(title, description, price, editId)
+      .then(() => {
+        window.alert("New course has been updated.");
+        setMessage("");
+        navigate("/course");
+      })
+      .catch((error) => {
+        console.log(error.response);
+        setMessage(error.response.data);
+      });
   };
+
+  useEffect(() => {
+    setEditId(editId);
+    console.log(editId);
+    sd(d);
+    console.log(d);
+  }, []);
 
   useEffect(() => {
     let _id = "";
@@ -89,7 +94,7 @@ const CourseComponet = (props) => {
           console.log("setCourseData2 err: " + err);
         });
     }
-  });
+  }, [editId, d]);
 
   return (
     <div style={{ padding: "3rem" }}>
@@ -152,7 +157,6 @@ const CourseComponet = (props) => {
                       type="text"
                       name="title"
                       defaultValue={course.title}
-                      ref={ref}
                       onChange={handleChangeTitle}
                     />
                     <p className="card-text">
