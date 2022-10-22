@@ -3,8 +3,6 @@
 前端為React<br>  
 後端為MOGODB+EXPRESS<br>  
 
-首頁RWD<br>  
-![image](https://github.com/wang19903/MERN/blob/master/RWD.gif)
 
 註冊帳號<br>  
 NAV登入後改變選項，註冊有錯誤題示，登入後導向至個人首頁<br>
