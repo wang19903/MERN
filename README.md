@@ -1,7 +1,5 @@
 # MERN
-這是一個全端的線上註冊課程網頁DEMO<br>  
-前端為React<br>  
-後端為MongoDB+EXPRESS<br>  
+這是一個全端的線上註冊課程網頁DEMO<br> 
 
 
 註冊帳號<br>  
